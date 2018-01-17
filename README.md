@@ -51,6 +51,7 @@ $ ./gradlew build
 ## License
 
 Copyright 2018 andreypechkurov
+
 Copyright 2016-2017 brunomcustodio
 
 Licensed under the Apache License, Version 2.0 (the "License");
