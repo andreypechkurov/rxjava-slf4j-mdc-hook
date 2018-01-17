@@ -1,11 +1,12 @@
-# rxjava-slf4j-mdc-hook
+# rxjava2-slf4j-mdc-hook
 
-[![Build Status](https://travis-ci.org/brunomcustodio/rxjava-slf4j-mdc-hook.svg?branch=master)](https://travis-ci.org/brunomcustodio/rxjava-slf4j-mdc-hook)
-[![codecov](https://codecov.io/gh/brunomcustodio/rxjava-slf4j-mdc-hook/branch/master/graph/badge.svg)](https://codecov.io/gh/brunomcustodio/rxjava-slf4j-mdc-hook)
+A port of
+[rxjava-slf4j-mdc-hook](https://github.com/bmcstdio/rxjava-slf4j-mdc-hook)
+with RxJava 2 support.
 
 An
 [RxJava](https://github.com/ReactiveX/RxJava)
-[hook](https://github.com/ReactiveX/RxJava/pull/4007)
+[hook](https://github.com/ReactiveX/RxJava/wiki/What%27s-different-in-2.0#runtime-hooks)
 which enables
 [SLF4J](https://github.com/qos-ch/slf4j)'s
 [`MDC`](http://www.slf4j.org/api/org/apache/log4j/MDC.html)
@@ -13,30 +14,11 @@ propagation.
 
 ## Usage
 
-If you're using RxJava ≥ 1.1.7:
-
 ```java
-RxJavaHooks.setOnScheduleAction(new MdcPropagatingOnScheduleAction());
+RxJavaPlugins.setScheduleHandler(new MdcPropagatingOnScheduleFunction());
 ```
 
-If you're using RxJava ≤ 1.1.6:
-
-```java
-RxJavaPlugins.getInstance().registerSchedulersHook(new RxJavaSchedulersHook() {
-  @Override
-  public Action0 onSchedule(final Action0 action) {
-    return new MdcPropagatingAction(action);
-  }
-});
-```
-
-**Note:**
-Both
-`RxJavaPlugins#getInstance()`
-and
-`RxJavaSchedulersHook#onSchedule(Action0)`
-are deprecated since 1.1.7.
-
+<!--
 ## Binaries
 
 `rxjava-slf4j-mdc-hook` is available from both JCenter and Maven Central:
@@ -64,9 +46,11 @@ $ git clone https://github.com/brunomcustodio/rxjava-slf4j-mdc-hook.git
 $ cd rxjava-slf4j-mdc-hook
 $ ./gradlew build
 ```
+-->
 
 ## License
 
+Copyright 2018 andreypechkurov
 Copyright 2016-2017 brunomcustodio
 
 Licensed under the Apache License, Version 2.0 (the "License");

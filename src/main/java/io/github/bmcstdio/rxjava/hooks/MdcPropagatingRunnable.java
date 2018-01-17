@@ -1,4 +1,5 @@
 /*
+ * Copyright 2018 andreypechkurov
  * Copyright 2016-2017 brunomcustodio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,35 +18,34 @@
 package io.github.bmcstdio.rxjava.hooks;
 
 import org.slf4j.MDC;
-import rx.functions.Action0;
 
 import java.util.Map;
 
 /**
- * Decorates an {@link Action0} so that it executes with the current {@link MDC} as its context.
+ * Decorates an {@link Runnable} so that it executes with the current {@link MDC} as its context.
  */
-public final class MdcPropagatingAction implements Action0 {
-  private final Action0 action0;
+public final class MdcPropagatingRunnable implements Runnable {
+  private final Runnable runnable0;
   private final Map<String, String> context;
 
   /**
-   * Decorates an {@link Action0} so that it executes with the current {@link MDC} as its context.
-   * @param action0 the {@link Action0} to decorate.
+   * Decorates an {@link Runnable} so that it executes with the current {@link MDC} as its context.
+   * @param runnable0 the {@link Runnable} to decorate.
    */
-  public MdcPropagatingAction(final Action0 action0) {
-    this.action0 = action0;
+  public MdcPropagatingRunnable(final Runnable runnable0) {
+    this.runnable0 = runnable0;
     this.context = MDC.getCopyOfContextMap();
   }
 
   @Override
-  public void call() {
+  public void run() {
     final Map<String, String> originalMdc = MDC.getCopyOfContextMap();
 
     if (context != null) {
       MDC.setContextMap(context);
     }
     try {
-      this.action0.call();
+      this.runnable0.run();
     } finally {
       if (originalMdc != null) {
         MDC.setContextMap(originalMdc);
